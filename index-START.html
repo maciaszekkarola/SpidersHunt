@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Catch the spider!</title>
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<button onClick="startGame()">Start!</button>
+
+<h1>Spider Hunt!! <span class="score">0</span></h1>
+<h4 class="timeCounter">10 s</h4>
+
+<div class="game">
+  <div class="hole ">
+    <div class="spider"></div>
+  </div>
+  <div class="hole ">
+    <div class="spider"></div>
+  </div>
+  <div class="hole ">
+    <div class="spider"></div>
+  </div>
+  <div class="hole ">
+    <div class="spider"></div>
+  </div>
+  <div class="hole ">
+    <div class="spider"></div>
+  </div>
+  <div class="hole ">
+    <div class="spider"></div>
+  </div>
+  <div class="hole ">
+    <div class="spider"></div>
+  </div>
+  <div class="hole ">
+    <div class="spider"></div>
+  </div>
+  <div class="hole ">
+    <div class="spider"></div>
+  </div>
+</div>
+
+<script>
+    const holes = document.querySelectorAll('.hole');
+    const scoreBoard = document.querySelector('.score');
+    const spiders = document.querySelectorAll('.spider');
+    const timeCounter = document.querySelector('.timeCounter');
+    let lastHole;
+    let timeUp = false;
+    const timeCount = 10000;
+
+    console.log(timeCounter);
+    function randomTime(min, max) {
+        return Math.round(Math.random() * (max -min) - min);
+    }
+
+    function randomHoles(holes) {
+        const idx = Math.floor(Math.random() * holes.length);
+        const hole = holes[idx];
+
+        if (hole === lastHole) {
+            return randomHoles(holes);
+        }
+        lastHole = hole;
+        return hole;
+    }
+    function peep() {
+        const time = +randomTime(100,2000);
+        const hole = randomHoles(holes);
+        hole.classList.add('up');
+        setTimeout( () => {
+            hole.classList.remove('up');
+        if (!timeUp) peep();
+    }, time);
+    }
+
+    function startGame() {
+        timeCounter.textContent = 10 + " s";
+        scoreBoard.textContent = 0;
+        timeUp = false;
+        score = 0;
+        peep();
+        countDown();
+        setTimeout( () => {
+            timeUp = true;
+    }, timeCount);
+    }
+
+    function hit(e) {
+        if (!e.isTrusted) return;
+        score++;
+        this.parentNode.classList.remove('up');
+        scoreBoard.textContent = score;
+    }
+
+    spiders.forEach(spider => spider.addEventListener('click', hit));
+
+
+
+    function countDown() {
+        var i = 9;
+        var myinterval = setInterval(function() {
+            timeCounter.textContent = i + " s";
+            if (i === 0) {
+                clearInterval(myinterval );
+            }
+            else {
+                i--;
+            }
+        }, 1000);
+    }
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
