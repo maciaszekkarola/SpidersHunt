@@ -14,41 +14,41 @@
 <h4 class="timeCounter">10 s</h4>
 
 <div class="game">
-  <div class="hole ">
+  <div class="spot ">
     <div class="spider"></div>
   </div>
-  <div class="hole ">
+  <div class="spot ">
     <div class="spider"></div>
   </div>
-  <div class="hole ">
+  <div class="spot ">
     <div class="spider"></div>
   </div>
-  <div class="hole ">
+  <div class="spot ">
     <div class="spider"></div>
   </div>
-  <div class="hole ">
+  <div class="spot ">
     <div class="spider"></div>
   </div>
-  <div class="hole ">
+  <div class="spot ">
     <div class="spider"></div>
   </div>
-  <div class="hole ">
+  <div class="spot ">
     <div class="spider"></div>
   </div>
-  <div class="hole ">
+  <div class="spot ">
     <div class="spider"></div>
   </div>
-  <div class="hole ">
+  <div class="spot ">
     <div class="spider"></div>
   </div>
 </div>
 
 <script>
-    const holes = document.querySelectorAll('.hole');
+    const spots = document.querySelectorAll('.spot');
     const scoreBoard = document.querySelector('.score');
     const spiders = document.querySelectorAll('.spider');
     const timeCounter = document.querySelector('.timeCounter');
-    let lastHole;
+    let lastSpot;
     let timeUp = false;
     const timeCount = 10000;
 
@@ -57,22 +57,22 @@
         return Math.round(Math.random() * (max -min) - min);
     }
 
-    function randomHoles(holes) {
-        const idx = Math.floor(Math.random() * holes.length);
-        const hole = holes[idx];
+    function randomSpots(spots) {
+        const idx = Math.floor(Math.random() * spots.length);
+        const spot = spots[idx];
 
-        if (hole === lastHole) {
-            return randomHoles(holes);
+        if (spot === lastSpot) {
+            return randomSpots(spots);
         }
-        lastHole = hole;
-        return hole;
+        lastSpot = spot;
+        return spot;
     }
     function peep() {
         const time = +randomTime(100,2000);
-        const hole = randomHoles(holes);
-        hole.classList.add('up');
+        const spot = randomSpots(spots);
+        spot.classList.add('up');
         setTimeout( () => {
-            hole.classList.remove('up');
+            spot.classList.remove('up');
         if (!timeUp) peep();
     }, time);
     }
