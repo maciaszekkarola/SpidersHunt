@@ -40,7 +40,7 @@ h1 {
 .game {
   width:600px;
   height: 600px;
-  max-height: 600px;
+  /*max-height: 600px;*/
   display:flex;
   flex-wrap:wrap;
   margin:0 auto;

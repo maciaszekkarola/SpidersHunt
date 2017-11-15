@@ -48,11 +48,11 @@
     const scoreBoard = document.querySelector('.score');
     const spiders = document.querySelectorAll('.spider');
     const timeCounter = document.querySelector('.timeCounter');
+    const timeCount = 10000;
     let lastSpot;
     let timeUp = false;
-    const timeCount = 10000;
+    let run = false;
 
-    console.log(timeCounter);
     function randomTime(min, max) {
         return Math.round(Math.random() * (max -min) - min);
     }
@@ -70,24 +70,30 @@
     function peep() {
         const time = +randomTime(100,2000);
         const spot = randomSpots(spots);
+
         spot.classList.add('up');
+
         setTimeout( () => {
             spot.classList.remove('up');
         if (!timeUp) peep();
-    }, time);
-    }
+        }, time
+    )}
 
     function startGame() {
+        if(run === true) return;
+        run = true;
         timeCounter.textContent = 10 + " s";
         scoreBoard.textContent = 0;
         timeUp = false;
         score = 0;
+
         peep();
         countDown();
         setTimeout( () => {
             timeUp = true;
-    }, timeCount);
-    }
+        },timeCount
+    )}
+
 
     function hit(e) {
         if (!e.isTrusted) return;
@@ -98,28 +104,19 @@
 
     spiders.forEach(spider => spider.addEventListener('click', hit));
 
-
-
     function countDown() {
-        var i = 9;
-        var myinterval = setInterval(function() {
+        let i = 9;
+        const myinterval = setInterval(function() {
             timeCounter.textContent = i + " s";
             if (i === 0) {
                 clearInterval(myinterval );
+                run = false;
             }
             else {
                 i--;
             }
         }, 1000);
     }
-
-
-
-
-
-
-
-
 
 </script>
 </body>
